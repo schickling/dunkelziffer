@@ -20,6 +20,7 @@ io.on('connection', function(socket) {
 
                 crawler(currentKeyword, provider).then(function(data) {
                     if (lastKeyword === currentKeyword) {
+                        data.keyword = currentKeyword;
                         socket.emit('data', data);
                     }
                 });
