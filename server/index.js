@@ -21,5 +21,5 @@ io.on('connection', function(socket) {
 
 app.use(express.static(__dirname + '/../public'));
 
-app.listen(4000);
+server.listen(4000);
 console.log('Local webserver started at localhost:4000');
