@@ -3,18 +3,19 @@ var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var crawler = require('./crawler');
-
-// provider
-var kavkaz = require('./provider/kavkaz');
+var readdir = require('fs').readdirSync;
 
 io.on('connection', function(socket) {
 
-    socket.on('keyword', function() {
-        var p = crawler('russia', kavkaz);
+    socket.on('keyword', function(keyword) {
 
-        p.then(function(data) {
-            socket.emit('data', data);
+        readdir(__dirname + '/provider').forEach(function(file) {
+            var provider = require('./provider/' + file);
+            crawler(keyword, provider).then(function(data) {
+                socket.emit('data', data);
+            });
         });
+
     });
 
 });
