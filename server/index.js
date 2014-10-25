@@ -1,10 +1,25 @@
+var express = require('express');
+var app = express();
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
 var crawler = require('./crawler');
 
 // provider
 var kavkaz = require('./provider/kavkaz');
 
-var p = crawler('russia', kavkaz);
+io.on('connection', function(socket) {
 
-p.then(function(r) {
-    console.log(r);
+    socket.on('keyword', function() {
+        var p = crawler('russia', kavkaz);
+
+        p.then(function(data) {
+            socket.emit('data', data);
+        });
+    });
+
 });
+
+app.use(express.static(__dirname + '/../public'));
+
+app.listen(4000);
+console.log('Local webserver started at localhost:4000');
