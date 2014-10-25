@@ -5,17 +5,26 @@ var io = require('socket.io')(server);
 var crawler = require('./crawler');
 var readdir = require('fs').readdirSync;
 
+var lastKeyword;
+
 io.on('connection', function(socket) {
 
     socket.on('keyword', function(keyword) {
+        var currentKeyword = keyword;
 
-        readdir(__dirname + '/provider').forEach(function(file) {
-            var provider = require('./provider/' + file);
-            crawler(keyword, provider).then(function(data) {
-                socket.emit('data', data);
+        if (lastKeyword !== currentKeyword) {
+            lastKeyword = currentKeyword;
+
+            readdir(__dirname + '/provider').forEach(function(file) {
+                var provider = require('./provider/' + file);
+
+                crawler(currentKeyword, provider).then(function(data) {
+                    if (lastKeyword === currentKeyword) {
+                        socket.emit('data', data);
+                    }
+                });
             });
-        });
-
+        }
     });
 
 });

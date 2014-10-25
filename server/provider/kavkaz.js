@@ -1,4 +1,5 @@
 var request = require('request');
+var _ = require('lodash');
 
 module.exports = {
 
@@ -7,9 +8,11 @@ module.exports = {
     },
 
     parse: function($) {
-        return $('.text-b a').map(function() {
+        var data = $('.text-b a.link-blue-11').map(function() {
             return $(this).text();
         }).get();
+
+        return data;
     }
 
 };
