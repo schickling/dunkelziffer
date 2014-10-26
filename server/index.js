@@ -32,7 +32,8 @@ io.on('connection', function(socket) {
         });
         crawler(url, provider).then(function(data) {
             var obj = {
-                data: data
+                data: data,
+                isDeep: provider.isDeep
             };
             socket.emit('data-details', obj);
         });
