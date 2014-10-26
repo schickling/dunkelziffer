@@ -27,7 +27,7 @@ body{
     position: absolute;
     top: 55px;
     left: 50%;
-    margin-left: -400px;
+    margin-left: -500px;
 }
 
 #query{
@@ -68,6 +68,11 @@ body{
     bottom: 0;
     background-color: #ffffff;
     padding: 15px;
+}
+
+.result-detail-content .result-content{
+    background-color: #ffffff;
+    padding-bottom: 30px;
 }
 
 a.result{
@@ -135,7 +140,7 @@ a.result{
     }
 
     #query{
-        margin-left: 350px;
+        /*margin-left: 350px;*/
     }
 
     .results-container{
