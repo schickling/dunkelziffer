@@ -12,7 +12,7 @@ module.exports = {
 
     parse: function($) {
 
-        var title = $('h1 i').html();
+        var title = $('h1.headline').html();
 
         var text = $('.article-body > p').map(function() {
             return $(this).html();
