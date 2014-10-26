@@ -12,8 +12,12 @@ io.on('connection', function(socket) {
         readdir(__dirname + '/provider/list').forEach(function(file) {
             var provider = require('./provider/list/' + file);
             crawler(currentKeyword, provider).then(function(data) {
-                data.keyword = currentKeyword;
-                socket.emit('data', data);
+                var obj = {
+                    data: data,
+                    keyword: keyword,
+                    isDeep: provider.isDeep
+                };
+                socket.emit('data', obj);
             });
         });
     });

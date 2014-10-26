@@ -1,17 +1,23 @@
 var request = require('request');
+var htmlToText = require('html-to-text').fromString;
 
 module.exports = {
 
-    url: function(keyword) {
-        return 'http://2r2tz6wzqh7gaji7.onion/eng/search.php?q=' + keyword;
-    },
-
     parse: function($) {
-        var data = $('.text-b a.link-blue-11').map(function() {
-            return $(this).text();
+
+        return $('.text-b a.link-blue-11').map(function() {
+
+            var el = $(this);
+            var title = el.find('h1').html();
+            var text = htmlToText(el.find('#text-b').html());
+
+            return {
+                title: title,
+                text: text
+            };
+
         }).get();
 
-        return data;
     }
 
 };

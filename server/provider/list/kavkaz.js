@@ -2,6 +2,8 @@ var request = require('request');
 
 module.exports = {
 
+    isDeep: true,
+
     url: function(keyword) {
         return 'http://2r2tz6wzqh7gaji7.onion/eng/search.php?q=' + keyword;
     },
@@ -21,7 +23,6 @@ module.exports = {
                 url: url,
                 title: title,
                 date: date,
-                isDeep: true,
                 source: 'Kavkaz Center'
             };
 
