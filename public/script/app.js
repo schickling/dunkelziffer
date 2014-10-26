@@ -47,19 +47,22 @@ $(document).ready(function() {
         return false;
     });
 
-    $('#query').on('keyup', function() {
-        clearTimeout(searchTimeout);
-        var query = $('#query').val();
+    $('#query').on('keyup', function(e) {
 
-        // validate search query
-        if (!query) {
-            populateResults(); //reset results if query is empty
-            return;
+        if(e.keyCode == 13){
+            clearTimeout(searchTimeout);
+            var query = $('#query').val();
+
+            // validate search query
+            if (!query) {
+                populateResults(); //reset results if query is empty
+                return;
+            }
+
+            searchTimeout = setTimeout(function() {
+                doSearch(query);
+            }, searchTimeoutThrottle);
         }
-
-        searchTimeout = setTimeout(function() {
-            doSearch(query);
-        }, searchTimeoutThrottle);
     });
 
     var populateResultDetail = function(result, isDeep) {
