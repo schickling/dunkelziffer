@@ -1,16 +1,16 @@
-$(document).ready(function(){
+$(document).ready(function() {
 
     var socket = io(),
         lastKeyword = '',
         resultsDeep = resultsClear = [],
         _isSearching = false,
-        isSearching = function(value){
-            if(typeof value !== 'undefined'){
+        isSearching = function(value) {
+            if (typeof value !== 'undefined') {
                 _isSearching = value;
             }
 
             //toggle search indicator
-            if(_isSearching){
+            if (_isSearching) {
                 $('#search-indicator').show();
             } else {
                 $('#search-indicator').hide();
@@ -32,7 +32,7 @@ $(document).ready(function(){
 
     socket.emit('keyword', 'russia');
 
-    $('a.result-back-btn').on('click', function(e){
+    $('a.result-back-btn').on('click', function(e) {
         e.preventDefault();
 
         $(this).parents('.result-detail-content').hide();
@@ -40,24 +40,24 @@ $(document).ready(function(){
         return false;
     });
 
-    $('#query').on('keyup', function(){
+    $('#query').on('keyup', function() {
         clearTimeout(searchTimeout);
         var query = $('#query').val();
 
         // validate search query
-        if(!query){
+        if (!query) {
             populateResults(); //reset results if query is empty
             return;
         }
 
-        searchTimeout = setTimeout(function(){
+        searchTimeout = setTimeout(function() {
             doSearch(query);
-        },searchTimeoutThrottle);
+        }, searchTimeoutThrottle);
     });
 
-    var populateResultDetail = function(result, isDeep){
-        var target = isDeep ? $('#results-dark'):$('#results-clear');
-            targetContent = target.find('.result-detail-content');
+    var populateResultDetail = function(result, isDeep) {
+        var target = isDeep ? $('#results-dark') : $('#results-clear');
+        targetContent = target.find('.result-detail-content');
 
         targetContent.find('.result-title').html(result.title);
         targetContent.find('.result-content').html(result.text);
@@ -65,18 +65,24 @@ $(document).ready(function(){
         targetContent.show();
     };
 
-    var populateResults = function(results){
+    var populateResults = function(results) {
 
-        if(!results){
+        if (!results) {
             resetSearch();
             return;
         }
 
-        if(results.keyword!==lastKeyword){
+        if (results.keyword !== lastKeyword) {
             return;
         }
 
-        if(results.isDeep){
+        results.data = results.data.map(function(r) {
+            r.date = moment(r.date).fromNow();
+            return r;
+        });
+
+
+        if (results.isDeep) {
             resultsDark = Array.prototype.concat(resultsDark, results.data);
         } else {
             resultsClear = Array.prototype.concat(resultsClear, results.data);
@@ -85,11 +91,11 @@ $(document).ready(function(){
         var resultsClearContent = $('<ul/>').addClass('list-unstyled'),
             resultsDarkContent = $('<ul/>').addClass('list-unstyled');
 
-        resultsClear.forEach(function(result){
+        resultsClear.forEach(function(result) {
             resultsClearContent.append(resultTemplate(result));
         });
 
-        resultsDark.forEach(function(result){
+        resultsDark.forEach(function(result) {
             resultsDarkContent.append(resultTemplate(result));
         });
 
@@ -100,7 +106,7 @@ $(document).ready(function(){
         isSearching(false);
     };
 
-    var resultClickListener = function(e){
+    var resultClickListener = function(e) {
         e.preventDefault();
 
         var url = $(this).attr('href');
@@ -110,12 +116,12 @@ $(document).ready(function(){
         return false;
     };
 
-    var resultDetailTemplate = function(result){
+    var resultDetailTemplate = function(result) {
         var template = $($('#result-detail-template').html());
 
     };
 
-    var resultTemplate = function(result){
+    var resultTemplate = function(result) {
         var output = $('<li/>'),
             template = $($('#result-template').html());
 
@@ -131,16 +137,16 @@ $(document).ready(function(){
         return output;
     };
 
-    var resetSearch = function(){
+    var resetSearch = function() {
         $('body').removeClass('has-results');
         resultsClear = [];
         resultsDark = [];
         $('#results-clear .results-content, #results-dark .results-content').html('');
     };
 
-    var doSearch = function(query){
-        if(!isSearching()){
-            if(lastKeyword!==query){
+    var doSearch = function(query) {
+        if (!isSearching()) {
+            if (lastKeyword !== query) {
                 resetSearch();
             }
             lastKeyword = query;
