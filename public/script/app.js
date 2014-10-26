@@ -32,6 +32,8 @@ $(document).ready(function() {
 
     socket.emit('keyword', 'russia');
 
+    $('.results-container').height($(window).outerHeight()-100);
+
     $('a.result-back-btn').on('click', function(e) {
         e.preventDefault();
 
