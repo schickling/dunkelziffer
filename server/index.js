@@ -18,7 +18,7 @@ io.on('connection', function(socket) {
                     keyword: currentKeyword,
                     isDeep: provider.isDeep
                 };
-                socket.emit('data', obj);
+                socket.emit('data-list', obj);
             });
         });
     });
@@ -35,7 +35,7 @@ io.on('connection', function(socket) {
             var obj = {
                 data: data
             };
-            socket.emit('data', obj);
+            socket.emit('data-details', obj);
         });
     });
 
