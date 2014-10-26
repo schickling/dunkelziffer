@@ -1,97 +1,3 @@
-// App = Ember.Application.create();
-
-// App.Socket = io();
-
-// App.Router.map(function() {
-//   // put your routes here
-// });
-
-// App.IndexRoute = Ember.Route.extend({
-//     model: function () {
-//         // if (!query) {
-//         //     return [];
-//         // }
-
-
-
-//         // var that = this;
-
-//         // that.set('hasSearched', true);
-
-
-//         return Ember.Deferred.promise(function (p) {
-
-//             // var ajaxCall = $.ajax(jsRoutes.controllers.Search.json().url, {
-//             //     type: 'POST',
-//             //     contentType: 'application/json',
-//             //     dataType: 'json',
-//             //     data: JSON.stringify(paramsObj)
-//             // }).then(function (response) {
-
-
-//             // listen for results
-//             socket.on('data', function(data) {
-//                 console.log(data);
-//             });
-
-
-//             //     return results;
-//             // });
-
-//             // p.resolve(ajaxCall);
-
-
-//         });
-//     }
-// });
-
-// App.IndexController = Ember.Controller.extend({
-//     init: function(){
-//         var that = this;
-
-//         // listen for results
-//         App.Socket.on('data', function(data) {
-
-//             console.log(data);
-
-
-//             var models = [];
-
-//             data.forEach(function(title){
-//                 models.push(App.SearchResult.create({
-//                         title: title
-//                     })
-//                 );
-
-//             });
-
-
-
-//             that.set('results', Array.prototype.concat(that.get('results'),models));
-//         });
-//     },
-//     results: [],
-//     actions: {
-//         doSearch: function(query){
-//             var that = this;
-
-//             if (!query) {
-//                 that.results = [];
-//                 console.log('');
-//                 return;
-//             }
-
-
-//             App.Socket.emit('keyword', query);
-//         },
-//     }
-// });
-
-// //MODELS
-// App.SearchResult = Ember.Object.extend({
-//     title: ''
-// });
-
 $(document).ready(function(){
 
     var socket = io(),
@@ -115,12 +21,23 @@ $(document).ready(function(){
         searchTimeoutThrottle = 500,
         searchTimeout;
 
-    socket.on('data', function(data) {
+    socket.on('data-list', function(data) {
         populateResults(data);
+    });
+
+    socket.on('data-details', function(data) {
+        populateResultDetail(data.data, data.isDeep);
     });
 
     socket.emit('keyword', 'russia');
 
+    $('a.result-back-btn').on('click', function(e){
+        e.preventDefault();
+
+        $(this).parents('.result-detail-content').hide();
+
+        return false;
+    });
 
     $('#query').on('keyup', function(){
         clearTimeout(searchTimeout);
@@ -136,6 +53,16 @@ $(document).ready(function(){
             doSearch(query);
         },searchTimeoutThrottle);
     });
+
+    var populateResultDetail = function(result, isDeep){
+        var target = isDeep ? $('#results-dark'):$('#results-clear');
+            targetContent = target.find('.result-detail-content');
+
+        targetContent.find('.result-title').html(result.title);
+        targetContent.find('.result-content').html(result.content);
+
+        targetContent.show();
+    };
 
     var populateResults = function(results){
 
@@ -154,33 +81,58 @@ $(document).ready(function(){
             resultsClear = Array.prototype.concat(resultsClear, results.data);
         }
 
-        var resultsClearHtml = resultsDarkHtml = '';
+        var resultsClearContent = $('<ul/>').addClass('list-unstyled'),
+            resultsDarkContent = $('<ul/>').addClass('list-unstyled');
 
         resultsClear.forEach(function(result){
-            resultsClearHtml += resultTemplate(result);
+            resultsClearContent.append(resultTemplate(result));
         });
 
-        $('#results-clear').html(resultsClearHtml);
-        $('#results-dark').html(resultsDarkHtml);
+        resultsDark.forEach(function(result){
+            resultsDarkContent.append(resultTemplate(result));
+        });
+
+        $('#results-clear .results-content').html('').append(resultsClearContent);
+        $('#results-dark .results-content').html('').append(resultsDarkContent);
 
         isSearching(false);
     };
 
-    var resultTemplate = function(result){
-        var template = $($('#result-template').html());
+    var resultClickListener = function(e){
+        e.preventDefault();
 
+        var url = $(this).attr('href');
+
+        socket.emit('details', url);
+
+        return false;
+    };
+
+    var resultDetailTemplate = function(result){
+        var template = $($('#result-detail-template').html());
+
+    };
+
+    var resultTemplate = function(result){
+        var output = $('<li/>'),
+            template = $($('#result-template').html());
 
         template.attr('href', result.url);
         template.find('.result-title').html(result.title);
         template.find('.result-source').html(result.source);
         template.find('.result-date').html(result.date);
 
-        return template[0].outerHTML;
+        template.on('click', resultClickListener);
+
+        output.append(template);
+
+        return output;
     };
 
     var resetSearch = function(){
-        resultsClear = resultsDark = [];
-        $('#results-clear, #results-dark').html('');
+        resultsClear = [];
+        resultsDark = [];
+        $('#results-clear .results-content, #results-dark .results-content').html('');
     };
 
     var doSearch = function(query){

@@ -6,6 +6,18 @@ body{
     font-size: 16px;
 }
 
+.results-container{
+    position: relative;
+}
+
+#results-dark{
+    background-color: red;
+}
+
+.result-detail-content{
+    background-color: green;
+}
+
 a.result{
     display: block;
     margin: 0 0 10px 0;
