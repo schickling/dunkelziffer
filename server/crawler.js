@@ -9,7 +9,9 @@ var proxy = {
 };
 var httpAgent = new Socks5ClientHttpAgent(proxy);
 var httpsAgent = new Socks5ClientHttpsAgent(proxy);
-
+request = request.defaults({
+    jar: request.jar()
+});
 module.exports = function(keyword, provider) {
 
     var url = provider.url(keyword);
@@ -19,8 +21,12 @@ module.exports = function(keyword, provider) {
 
     request({
         url: url,
-        agent: agent
+        agent: agent,
+        pool: {
+            maxSockets: Infinity
+        }
     }, function(err, res, body) {
+        if (err) throw err;
         var $ = cheerio.load(body);
         def.resolve(provider.parse($));
     });

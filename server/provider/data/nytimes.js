@@ -1,5 +1,7 @@
 module.exports = {
 
+    isDeep: true,
+
     check: function(url) {
         return url.indexOf('nytimes.com') > -1;
     },
@@ -10,12 +12,11 @@ module.exports = {
 
     parse: function($) {
 
-        var title = $('h1.headline').html();
+        var title = $('h1 i').html();
 
-        //var text = $('.article-body p').map(function() {
-        //return $(this).html();
-        //}).get().concat('\n');
-        var text = 1;
+        var text = $('.article-body p').map(function() {
+            return $(this).html();
+        }).get().join('\n');
 
         return {
             title: title,

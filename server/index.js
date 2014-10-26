@@ -30,7 +30,6 @@ io.on('connection', function(socket) {
         var provider = _.find(dataProviders, function(p) {
             return p.check(url);
         });
-        console.log(provider);
         crawler(url, provider).then(function(data) {
             var obj = {
                 data: data

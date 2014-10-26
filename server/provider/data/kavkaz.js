@@ -2,6 +2,8 @@ var htmlToText = require('html-to-text').fromString;
 
 module.exports = {
 
+    isDeep: true,
+
     check: function(url) {
         return url.indexOf('2r2tz6wzqh7gaji7') > -1;
     },
