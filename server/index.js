@@ -1,3 +1,4 @@
+var _ = require('lodash');
 var express = require('express');
 var app = express();
 var server = require('http').Server(app);
@@ -14,11 +15,27 @@ io.on('connection', function(socket) {
             crawler(currentKeyword, provider).then(function(data) {
                 var obj = {
                     data: data,
-                    keyword: keyword,
+                    keyword: currentKeyword,
                     isDeep: provider.isDeep
                 };
                 socket.emit('data', obj);
             });
+        });
+    });
+
+    socket.on('details', function(url) {
+        var dataProviders = readdir(__dirname + '/provider/data').map(function(p) {
+            return require('./provider/data/' + p);
+        });
+        var provider = _.find(dataProviders, function(p) {
+            return p.check(url);
+        });
+        console.log(provider);
+        crawler(url, provider).then(function(data) {
+            var obj = {
+                data: data
+            };
+            socket.emit('data', obj);
         });
     });
 

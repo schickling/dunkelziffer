@@ -1,4 +1,3 @@
-var request = require('request');
 var htmlToText = require('html-to-text').fromString;
 
 module.exports = {

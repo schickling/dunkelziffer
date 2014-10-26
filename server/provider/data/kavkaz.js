@@ -1,22 +1,24 @@
-var request = require('request');
 var htmlToText = require('html-to-text').fromString;
 
 module.exports = {
 
+    check: function(url) {
+        return url.indexOf('2r2tz6wzqh7gaji7') > -1;
+    },
+
+    url: function(url) {
+        return url;
+    },
+
     parse: function($) {
 
-        return $('.text-b a.link-blue-11').map(function() {
+        var title = $('h1').html();
+        var text = htmlToText($('#text-b').html());
 
-            var el = $(this);
-            var title = el.find('h1').html();
-            var text = htmlToText(el.find('#text-b').html());
-
-            return {
-                title: title,
-                text: text
-            };
-
-        }).get();
+        return {
+            title: title,
+            text: text
+        };
 
     }
 
