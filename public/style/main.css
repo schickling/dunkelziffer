@@ -4,7 +4,21 @@ html, body{
 body{
     position: relative;
     font-size: 16px;
+    font-family: 'Open Sans', sans-serif;
 }
+
+/*OVERRRIDE BOOTSTRAP*/
+#query{
+    width: auto;
+    display: block;
+    margin: 0 auto;
+    max-width: 400px;
+    background-color: #e6e6e6;
+    border-radius: 4px;
+    padding: 10px;
+    border: 0;
+}
+
 
 .results-container{
     position: relative;
@@ -15,7 +29,12 @@ body{
 }
 
 .result-detail-content{
-    background-color: green;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ffffff;
 }
 
 a.result{
@@ -36,3 +55,18 @@ a.result{
     bottom: 0;
     margin: -25px auto auto auto;
 }*/
+
+@media (min-width: 769px) {
+    .results-container{
+        width: 50%;
+        float: left;
+    }
+}
+
+@media (min-width: 993px) {
+
+}
+
+@media (min-width: 1201px) {
+
+}

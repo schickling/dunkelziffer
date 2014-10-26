@@ -96,6 +96,7 @@ $(document).ready(function(){
         $('#results-clear .results-content').html('').append(resultsClearContent);
         $('#results-dark .results-content').html('').append(resultsDarkContent);
 
+        $('body').addClass('has-results');
         isSearching(false);
     };
 
@@ -131,6 +132,7 @@ $(document).ready(function(){
     };
 
     var resetSearch = function(){
+        $('body').removeClass('has-results');
         resultsClear = [];
         resultsDark = [];
         $('#results-clear .results-content, #results-dark .results-content').html('');
