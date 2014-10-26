@@ -83,8 +83,10 @@ $(document).ready(function() {
 
 
         if (results.isDeep) {
+            hideRightLoader();
             resultsDark = Array.prototype.concat(resultsDark, results.data);
         } else {
+            hideLeftLoader();
             resultsClear = Array.prototype.concat(resultsClear, results.data);
         }
 
@@ -137,6 +139,22 @@ $(document).ready(function() {
         return output;
     };
 
+    var hideLeftLoader = function() {
+        $('#results-clear .loader').fadeOut();
+    };
+
+    var hideRightLoader = function() {
+        $('#results-dark .loader').fadeOut();
+    };
+
+    var showLeftLoader = function() {
+        $('#results-clear .loader').fadeIn();
+    };
+
+    var showRightLoader = function() {
+        $('#results-dark .loader').fadeIn();
+    };
+
     var resetSearch = function() {
         $('body').removeClass('has-results');
         resultsClear = [];
@@ -149,6 +167,8 @@ $(document).ready(function() {
             if (lastKeyword !== query) {
                 resetSearch();
             }
+            showRightLoader();
+            showLeftLoader();
             lastKeyword = query;
             isSearching(true);
             socket.emit('keyword', query);

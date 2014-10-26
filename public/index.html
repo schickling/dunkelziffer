@@ -12,6 +12,15 @@
 
         <link rel="stylesheet" href="style/bootstrap.min.css">
         <link rel="stylesheet" href="style/main.css">
+        <style>
+          .loader {
+            background: url('img/loader.gif') no-repeat;
+            width: 400px;
+            height: 400px;
+            position: absolute;
+            display: none;
+          }
+        </style>
 
         <!--[if lt IE 9]>
         <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -25,7 +34,7 @@
                 <img src="img/logo_dunkelziffer_textonly.svg" alt="Logo" class="img-responsive"/>
             </div>
             <input id="query" type="text" placeholder="Search..."/>
-            <span id="search-indicator" style="display:none;">Loading...</span>
+            <!--<span id="search-indicator" style="display:none;">Loading...</span>-->
         </div>
 
         <div class="clearfix">
@@ -35,6 +44,7 @@
                         <img src="img/icon_surfaceweb.svg" alt="Surface web" class="img-responsive" />
                     </div>
                 </div>
+                <div class="loader"></div>
                 <div class="results-content"></div>
                 <div class="result-detail-content" style="display:none;">
                     <a href="#" class="result-back-btn">Back to results</a>
@@ -48,6 +58,7 @@
                         <img src="img/icon_deepweb.svg" alt="Deep web" class="img-responsive" />
                     </div>
                 </div>
+                <div class="loader"></div>
                 <div class="results-content"></div>
                 <div class="result-detail-content" style="display:none;">
                     <a href="#" class="result-back-btn">Back to results</a>
