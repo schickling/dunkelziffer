@@ -26,13 +26,18 @@ $(document).ready(function() {
     });
 
     socket.on('data-details', function(data) {
-        console.log('DETIAL DATA', data);
         populateResultDetail(data.data, data.isDeep);
     });
 
     socket.emit('keyword', 'russia');
 
-    $('.results-container').height($(window).outerHeight()-150);
+    var fixHeight = function(){
+        $('.results-container').height($(window).outerHeight()-150);
+    };
+
+    $(window).resize(fixHeight);
+
+    fixHeight();
 
     $('a.result-back-btn').on('click', function(e) {
         e.preventDefault();
