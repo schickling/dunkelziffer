@@ -69,6 +69,12 @@ $(document).ready(function() {
         targetContent.find('.result-title').html(result.title);
         targetContent.find('.result-content').html(result.text);
 
+        if(isDeep){
+            targetContent.find('.result-content').append('<img src="img/right.svg">');
+        } else {
+            targetContent.find('.result-content').append('<img src="img/left.svg">');
+        }
+
         targetContent.show();
     };
 

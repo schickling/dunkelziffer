@@ -56,7 +56,7 @@ body{
 
 .results-container{
     position: relative;
-    padding: 15px;
+    padding: 15px 25px;
 }
 
 #results-dark{
@@ -69,12 +69,14 @@ body{
     right: 0;
     bottom: 0;
     background-color: #ffffff;
-    padding: 15px;
+    padding: 5px 25px 15px 25px;
 }
 
 .result-detail-content .result-content{
     background-color: #ffffff;
     padding-bottom: 30px;
+padding: 0 15px;
+margin: 0 -15px;
 }
 
 a.result{
