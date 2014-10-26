@@ -5,7 +5,7 @@ var Socks5ClientHttpAgent = require('socks5-http-client/lib/Agent');
 var Socks5ClientHttpsAgent = require('socks5-https-client/lib/Agent');
 
 var proxy = {
-    socksPort: 9150
+    socksPort: 9050
 };
 var httpAgent = new Socks5ClientHttpAgent(proxy);
 var httpsAgent = new Socks5ClientHttpsAgent(proxy);
