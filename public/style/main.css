@@ -18,15 +18,29 @@ body{
             display: none;
           }
 
+#header{
+    position: relative;
+    padding-bottom: 20px;
+}
+
+#logo{
+    position: absolute;
+    top: 55px;
+    left: 50%;
+    margin-left: -400px;
+}
+
 #query{
     width: auto;
     display: block;
-    margin: 0 auto;
+    margin: 50px auto 0 auto;
+    min-width: 400px;
     max-width: 400px;
     background-color: #e6e6e6;
     border-radius: 4px;
     padding: 10px;
     border: 0;
+    position: relative;
 
   font-family : Open Sans;
   font-style : italic;
@@ -118,6 +132,10 @@ a.result{
         float: left;
         width: 45px;
         height: 45px;
+    }
+
+    #query{
+        margin-left: 350px;
     }
 
     .results-container{
