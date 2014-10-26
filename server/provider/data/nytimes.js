@@ -14,7 +14,7 @@ module.exports = {
 
         var title = $('h1 i').html();
 
-        var text = $('.article-body p').map(function() {
+        var text = $('.article-body > p').map(function() {
             return $(this).html();
         }).get().join('\n');
 
