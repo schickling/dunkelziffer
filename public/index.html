@@ -21,12 +21,20 @@
     <body>
 
         <div>
+            <div id="logo">
+                <img src="img/logo_dunkelziffer_textonly.svg" alt="Logo" class="img-responsive"/>
+            </div>
             <input id="query" type="text" placeholder="Search..."/>
             <span id="search-indicator" style="display:none;">Loading...</span>
         </div>
 
         <div class="clearfix">
             <div id="results-clear" class="results-container">
+                <div class="clearfix">
+                    <div class="web-logo">
+                        <img src="img/icon_surfaceweb.svg" alt="Surface web" class="img-responsive" />
+                    </div>
+                </div>
                 <div class="results-content"></div>
                 <div class="result-detail-content" style="display:none;">
                     <a href="#" class="result-back-btn">Back to results</a>
@@ -35,6 +43,11 @@
                 </div>
             </div>
             <div id="results-dark" class="results-container">
+                <div class="clearfix">
+                    <div class="web-logo">
+                        <img src="img/icon_deepweb.svg" alt="Deep web" class="img-responsive" />
+                    </div>
+                </div>
                 <div class="results-content"></div>
                 <div class="result-detail-content" style="display:none;">
                     <a href="#" class="result-back-btn">Back to results</a>
