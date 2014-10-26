@@ -3,6 +3,12 @@ html, body{
 }
 body{
     position: relative;
+    font-size: 16px;
+}
+
+a.result{
+    display: block;
+    margin: 0 0 10px 0;
 }
 
 /*#search-indicator{
