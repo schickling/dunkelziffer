@@ -9,9 +9,11 @@ body{
 }
 
           .loader {
-            background: url('img/loader.gif') no-repeat;
+            background: url('../img/loader.gif') no-repeat;
             width: 400px;
             height: 400px;
+            margin-left: -200px;
+            left: 50%;
             position: absolute;
             display: none;
           }

@@ -13,6 +13,7 @@ io.on('connection', function(socket) {
         readdir(__dirname + '/provider/list').forEach(function(file) {
             var provider = require('./provider/list/' + file);
             crawler(currentKeyword, provider).then(function(data) {
+                data = data.slice(0, 10);
                 var obj = {
                     data: data,
                     keyword: currentKeyword,
