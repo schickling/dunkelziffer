@@ -61,6 +61,34 @@ a.result{
   color : rgb(0, 0, 0);
 }
 
+.result .result-title{
+  font-family : Open Sans;
+  font-size : 17px;
+  line-height : 27px;
+  letter-spacing : 0.22px;
+  color : #000000;
+  color : rgb(0, 0, 0);
+}
+
+.result .result-source, .result .result-date{
+  font-family : Open Sans;
+  font-size : 10px;
+  letter-spacing : 1px;
+  text-transform : uppercase;
+  color : #666666;
+  color : rgb(102, 102, 102);
+}
+
+.result-detail-content .result-title{
+      font-family : Open Sans;
+  font-weight : bold;
+  font-size : 17px;
+  line-height : 27px;
+  letter-spacing : 0.22px;
+  color : #000000;
+  color : rgb(0, 0, 0);
+}
+
 /*#search-indicator{
     position: absolute;
     width: 100px;
@@ -85,6 +113,8 @@ a.result{
     .results-container{
         width: 50%;
         float: left;
+        overflow-x:hidden;
+        overflow-y:auto;
     }
 }
 
