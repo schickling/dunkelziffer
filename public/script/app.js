@@ -26,6 +26,7 @@ $(document).ready(function(){
     });
 
     socket.on('data-details', function(data) {
+        console.log('DETIAL DATA', data);
         populateResultDetail(data.data, data.isDeep);
     });
 
@@ -59,7 +60,7 @@ $(document).ready(function(){
             targetContent = target.find('.result-detail-content');
 
         targetContent.find('.result-title').html(result.title);
-        targetContent.find('.result-content').html(result.content);
+        targetContent.find('.result-content').html(result.text);
 
         targetContent.show();
     };

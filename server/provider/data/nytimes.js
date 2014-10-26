@@ -1,6 +1,6 @@
 module.exports = {
 
-    isDeep: true,
+    isDeep: false,
 
     check: function(url) {
         return url.indexOf('nytimes.com') > -1;
