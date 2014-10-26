@@ -15,7 +15,7 @@ module.exports = {
     parse: function($) {
 
         var title = $('h1').html();
-        var text = htmlToText($('#text-b').html());
+        var text = htmlToText($('#text-b').html()).replace(/\[.*\]/g, '');
 
         return {
             title: title,
